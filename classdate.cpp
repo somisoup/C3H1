@@ -1,128 +1,135 @@
+// Sheel Kumar
+// CSE-40477 HW1
+// April 10, 2018
+
 #include <iostream>
 
-class date
+// Class that carries month, day, and year
+class Date
 {
-    public:
-    date(int monthToSet, int dayToSet, int yearToSet);
+public:
+    // Default and only constructor
+    Date(int month, int day, int year);
 
-    void setMonth(int monthToSet);
+    // Public set and get for each private member variable
+    void setMonth(int month);
     int getMonth();
-
-    void setDay(int dayToSet);
+    void setDay(int day);
     int getDay();
-
-    void setYear(int yearToSet);
+    void setYear(int year);
     int getYear();
 
+    // Displays date in MM/DD/YYYY format
     void display();
 
-    private:
+private:
     int month;
     int day;
     int year;
-
-    const int default_month = 1;
-
-    bool isMonthValid(int monthToCheck);
 };
 
-date::date(int monthToSet, int dayToSet, int yearToSet)
+// Constructor - takes in month, day, and year and assigns to appropriate private member
+Date::Date(int month, int day, int year)
 {
-    if (isMonthValid(monthToSet))
+    // Use function to set month to eliminate duplicate code
+    setMonth(month);
+
+    this->day = day;
+    this->year = year;
+}
+
+// Change month value to passed-in parameter
+void Date::setMonth(int month)
+{
+    // Needed for potential month input violation checks
+    const int default_month = 1;
+    const int maxMonth = 12;
+    const int minMonth = 1;
+
+    // Check if month is valid. If not, assign to 1
+    if (month > maxMonth || month < minMonth)
     {
-        month = monthToSet;
+        std::cerr << "Invalid month entered\n";
+        this->month = default_month;
     }
     else
     {
-        month = default_month;
-    }
-
-    day = dayToSet;
-    year = yearToSet;
-}
-
-void date::setMonth(int monthToSet)
-{
-    if (isMonthValid(monthToSet))
-    {
-        month = monthToSet;
-    }
-    else
-    {
-        month = default_month;
+        this->month = month;
     }
 }
 
-int date::getMonth()
+// Return current month value
+int Date::getMonth()
 {
     return month;
 }
 
-void date::setDay(int dayToSet)
+// Change day value to passed-in parameter
+void Date::setDay(int day)
 {
-    day = dayToSet;
+    this->day = day;
 }
 
-int date::getDay()
+// Return current day value
+int Date::getDay()
 {
     return day;
 }
 
-void date::setYear(int yearToSet)
+// Change year value to passed-in parameter
+void Date::setYear(int year)
 {
-    year = yearToSet;
+    this->year = year;
 }
 
-int date::getYear()
+// Return current year value
+int Date::getYear()
 {
     return year;
 }
 
-void date::display()
+// Display date using MM/DD/YYYY format
+void Date::display()
 {
     std::cout << month << "/" << day << "/" << year << "\n";
-}
-
-bool date::isMonthValid(int monthToCheck)
-{
-    if (monthToCheck > 12 || monthToCheck < 1)
-    {
-        std::cerr << "Invalid month entered\n";
-        return false;
-    }
-
-    return true;
 }
 
 int main()
 {
     int myMonth = 0, myDay = 0, myYear = 0;
+
+    // Prompt user to enter values
     std::cout << "Enter month: ";
     std::cin >> myMonth;
     std::cout << "\nEnter day: ";
     std::cin >> myDay;
     std::cout << "\nEnter year: ";
     std::cin >> myYear;
-    
-    date myDate(myMonth, myDay, myYear);
+
+    // Create object with user-input values and display
+    Date myDate(myMonth, myDay, myYear);
     myDate.display();
 
+    // Prompt user to change month and return new month value
     std::cout << "Enter new month: ";
     std::cin >> myMonth;
     myDate.setMonth(myMonth);
     std::cout << "\nNew month is: " << myDate.getMonth() << "\n";
 
+    // Prompt user to change day and return new day value
     std::cout << "Enter new day: ";
     std::cin >> myDay;
     myDate.setDay(myDay);
     std::cout << "\nNew day is: " << myDate.getDay() << "\n";
 
+    // Prompt user to change year and return new year value
     std::cout << "Enter new year: ";
     std::cin >> myYear;
     myDate.setYear(myYear);
     std::cout << "\nNew year is: " << myDate.getYear() << "\n";
 
+    // Display new date with changed values
     myDate.display();
 
-    return 0;   
+    return 0;
 }

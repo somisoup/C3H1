@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+.vs/C3H1/v15/.suo
+.vs/C3H1/v15/Browse.VC.db
+.vs/C3H1/v15/ipch/AutoPCH/8136c5a4/CLASSDATE-6f4ee424/CLASSDATE.ipch
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
